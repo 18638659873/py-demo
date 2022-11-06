@@ -10,9 +10,4 @@ headers = {
 
 resp = requests.get(url, headers=headers)
 
-
-
 print(resp.text)
-
-
-

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This is a demo</title>
+    <!--引入echarts的js文件  官方网址如下图所示-->
+    <!--https://echarts.apache.org/zh/theme-builder.html-->
+    <!--可以使用bootcdn上搜索，可以找到想用的js路径-->
+    <script src="https://cdn.bootcdn.net/ajax/libs/echarts/5.4.0/echarts.min.js"></script>
+</head>
+
+<body>
+
+{{demo}}
+
+<div>
+    {% for item in lst %}
+    {{item}}
+    {% endfor%}
+    <form method="post" action="/login">
+        用户名：<input type="text" name="username">
+        <input type="submit" value="登录">
+    </form>
+
+</div>
+
+<div id="main" style="width: 800px;height: 600px;">
+</div>
+
+<script>
+    var echart = echarts.init(document.getElementById("main"));
+    var option = {
+        backgroundColor: '#2c343c',
+        title: {
+            text: 'Customized Pie',
+            left: 'center',
+            top: 20,
+            textStyle: {
+                color: '#ccc'
+            }
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        visualMap: {
+            show: false,
+            min: 80,
+            max: 600,
+            inRange: {
+                colorLightness: [0, 1]
+            }
+        },
+        series: [
+            {
+                name: 'Access From',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '50%'],
+                data: [
+                    {value: 335, name: 'Direct'},
+                    {value: 310, name: 'Email'},
+                    {value: 274, name: 'Union Ads'},
+                    {value: 235, name: 'Video Ads'},
+                    {value: 400, name: 'Search Engine'}
+                ].sort(function (a, b) {
+                    return a.value - b.value;
+                }),
+                roseType: 'radius',
+                label: {
+                    color: 'rgba(255, 255, 255, 0.3)'
+                },
+                labelLine: {
+                    lineStyle: {
+                        color: 'rgba(255, 255, 255, 0.3)'
+                    },
+                    smooth: 0.2,
+                    length: 10,
+                    length2: 20
+                },
+                itemStyle: {
+                    color: '#c23531',
+                    shadowBlur: 200,
+                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+                },
+                animationType: 'scale',
+                animationEasing: 'elasticOut',
+                animationDelay: function (idx) {
+                    return Math.random() * 200;
+                }
+            }
+        ]
+    };
+    echart.setOption(option);
+</script>
+</body>
+</html>
